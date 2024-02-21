@@ -26,8 +26,11 @@ test("Login demo by css class, Id, data-test", async ({ page }) => {
   // by data-test
   await page.locator("data-test=login-button").click();
 
+  await page.waitForURL(/.*inventory.html/);
+
   // by css class
   const productsTitle = await page.locator(".title");
   await expect(productsTitle).toHaveText("Products");
   await expect(productsTitle).toBeVisible();
+  await expect(page).toHaveURL(/.*inventory.html/);
 });

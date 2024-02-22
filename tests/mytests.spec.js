@@ -1,4 +1,5 @@
-const {test, expect} = require('@playwright/test')
+const {test, expect} = require('@playwright/test');
+import {login} from './testutils';
 
 test.beforeAll('Setup', async ()=> {
     console.log("Starting execution")
@@ -54,22 +55,20 @@ test.describe("Login", async () => {
 
 test.describe("Login & Price", async () => {
   test("Login demo & first price @fast", async ({ page }) => {
-    await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
-    await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
-    await page.getByRole("button", { name: "Login" }).click();
 
-    await expect(await page.getByText("Products")).toBeVisible();
+    await login(page);
 
-    await expect(
-      await page.locator("(//div[contains(@class, 'inventory_item_price')])[1]")).toHaveText("$29.99")
-  });
+    await test.step('Verify price', async ()=> {
+      await expect(
+        await page.locator("(//div[contains(@class, 'inventory_item_price')])[1]")
+      ).toHaveText("$29.99");
+
+    }); 
+     });
 
   test("Login demo order low to high price and first price", async ({ page }) => {
-    await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
-    await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
-    await page.getByRole("button", { name: "Login" }).click();
-
-    await expect(await page.getByText("Products")).toBeVisible();
+      
+    await login(page);
 
     //select by value
     //await page.locator(".product_sort_container").selectOption("lohi");

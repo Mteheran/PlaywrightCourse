@@ -6,7 +6,7 @@ test.beforeAll('Setup', async ()=> {
 });
 
 test.beforeEach("Test setup", async({page}) => {
-  await page.goto("https://www.saucedemo.com/");
+  await page.goto("/");
 })
 
 test.afterAll('Complete', async()=> {

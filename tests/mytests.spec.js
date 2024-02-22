@@ -35,7 +35,7 @@ test("Login demo by css class, Id, data-test", async ({ page }) => {
   await expect(page).toHaveURL(/.*inventory.html/);
 });
 
-test("Login demo & first price", async ({ page }) => {
+test("Login demo & first price @fast", async ({ page }) => {
   await page.goto("https://www.saucedemo.com/");
   await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
   await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");

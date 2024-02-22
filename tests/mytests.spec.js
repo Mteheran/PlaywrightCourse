@@ -1,8 +1,14 @@
 const {test, expect} = require('@playwright/test')
 
-test("Login demo", async({page}) => {
+test.beforeAll('Setup', async ()=> {
+    console.log("Starting execution")
+});
 
-    await page.goto("https://www.saucedemo.com/");
+test.beforeEach("Test setup", async({page}) => {
+  await page.goto("https://www.saucedemo.com/");
+})
+
+test("Login demo", async({page}) => {
     await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
     await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
     await page.getByRole("button", {name: "Login"}).click();
@@ -15,8 +21,6 @@ test("Login demo", async({page}) => {
 });
 
 test("Login demo by css class, Id, data-test", async ({ page }) => {
-  await page.goto("https://www.saucedemo.com/");
-
   // by id
   await page.locator("#user-name").fill("standard_user");
 
@@ -36,7 +40,6 @@ test("Login demo by css class, Id, data-test", async ({ page }) => {
 });
 
 test("Login demo & first price @fast", async ({ page }) => {
-  await page.goto("https://www.saucedemo.com/");
   await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
   await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
   await page.getByRole("button", { name: "Login" }).click();
@@ -48,7 +51,6 @@ test("Login demo & first price @fast", async ({ page }) => {
 });
 
 test("Login demo order low to high price and first price", async ({ page }) => {
-  await page.goto("https://www.saucedemo.com/");
   await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
   await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
   await page.getByRole("button", { name: "Login" }).click();

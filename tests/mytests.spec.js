@@ -59,9 +59,15 @@ test("Login demo order low to high price and first price", async ({ page }) => {
   //await page.locator(".product_sort_container").selectOption("lohi");
 
   //select by label
-  await page
-    .locator(".product_sort_container")
-    .selectOption({ label: "Price (low to high)" });
+  //await page
+  //  .locator(".product_sort_container")
+  //  .selectOption({ label: "Price (low to high)" });
+  
+  // key press
+   await page
+     .locator(".product_sort_container").press("ArrowDown");
+     
+   await page.locator(".product_sort_container").press("ArrowDown");
 
   await expect(
     await page.locator("(//div[contains(@class, 'inventory_item_price')])[1]")

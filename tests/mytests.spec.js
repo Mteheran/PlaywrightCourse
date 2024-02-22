@@ -8,6 +8,14 @@ test.beforeEach("Test setup", async({page}) => {
   await page.goto("https://www.saucedemo.com/");
 })
 
+test.afterAll('Complete', async()=> {
+  console.log("Tests Done!");
+});
+
+test.afterEach(async ({page}, testInfo)=> {
+  await page.screenshot({ path: `${testInfo.title}.png`, fullPage: true });
+})
+
 test("Login demo", async({page}) => {
     await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
     await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");

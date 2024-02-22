@@ -46,3 +46,31 @@ test("Login demo & first price", async ({ page }) => {
   await expect(
     await page.locator("(//div[contains(@class, 'inventory_item_price')])[1]")).toHaveText("$29.99")
 });
+
+test("Login demo order low to high price and first price", async ({ page }) => {
+  await page.goto("https://www.saucedemo.com/");
+  await page.getByRole("textbox", { name: "Username" }).fill("standard_user");
+  await page.getByRole("textbox", { name: "Password" }).fill("secret_sauce");
+  await page.getByRole("button", { name: "Login" }).click();
+
+  await expect(await page.getByText("Products")).toBeVisible();
+
+  //select by value
+  //await page.locator(".product_sort_container").selectOption("lohi");
+
+  //select by label
+  await page
+    .locator(".product_sort_container")
+    .selectOption({ label: "Price (low to high)" });
+
+  await expect(
+    await page.locator("(//div[contains(@class, 'inventory_item_price')])[1]")
+  ).toHaveText("$7.99");
+
+  await expect(
+    await page.locator(
+      "(//div[contains(@class, 'inventory_item_price')])[last()]"
+    )
+  ).toHaveText("$49.99");
+});
+

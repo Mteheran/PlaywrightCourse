@@ -30,8 +30,8 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-    headless: process.env.CI ? true: false,
-    baseURL: "https://www.saucedemo.com/",
+    headless: true,
+    baseURL: process.env.WEB_URL ?? "https://www.saucedemo.com/",
   },
 
   /* Configure projects for major browsers */
